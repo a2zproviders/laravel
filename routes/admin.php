@@ -4,19 +4,17 @@ use App\Http\Controllers\admin\WinController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest', 'namespace' => 'admin'], function () {
-    // dd('dfskgjdk');
-    Route::get('', 'UserController@index');
-    Route::any('', 'UserController@index')->name('admin_login');
-    Route::post('main/checklogin', 'UserController@checklogin');
-    Route::get('register', 'UserController@register')->name('register');
-    Route::post('register', 'UserController@store');
-    Route::get('verify/{user:id}', 'UserController@verify')->name('verify');
-    Route::post('verify/{user:id}', 'UserController@verifyed');
-    Route::get('resend/{user:id}', 'UserController@resend')->name('resend');
+    Route::get('', 'LoginController@index');
+    Route::any('', 'LoginController@index')->name('admin_login');
+    Route::post('main/checklogin', 'LoginController@checklogin');
+    Route::get('register', 'LoginController@register')->name('register');
+    Route::post('register', 'LoginController@store');
+    Route::get('verify/{user:id}', 'LoginController@verify')->name('verify');
+    Route::post('verify/{user:id}', 'LoginController@verifyed');
+    Route::get('resend/{user:id}', 'LoginController@resend')->name('resend');
 });
 Route::group(['middleware' => 'auth', 'namespace' => 'admin'], function () {
-    Route::get('get_color_size', 'ColorController@get_category_wise')->name('get_color_size');
-    Route::get('get_price', 'InqueryController@get_price')->name('get_price');
+
     // Dashboard
     Route::get('', 'DashboardController@index');
     Route::get('/home', 'DashboardController@index')->name('admin_home');
@@ -27,35 +25,26 @@ Route::group(['middleware' => 'auth', 'namespace' => 'admin'], function () {
     Route::post('state/delete', 'StateController@destroyAll');
     Route::post('city/delete', 'CityController@destroyAll');
     Route::post('role/delete', 'RoleController@destroyAll');
-    Route::post('price/delete', 'PlanController@destroyAll');
-    Route::post('inquery/delete', 'InqueryController@destroyAll');
-    Route::get('inquery/status/{order}', 'InqueryController@change_status')->name('inquery_status');
-    Route::post('category/delete', 'CategoryController@destroyAll');
 
-    Route::post('color/delete', 'ColorController@destroyAll');
-    Route::post('size/delete', 'SizeController@destroyAll');
+    Route::get('search/order', 'OrderController@search')->name('order.search');
+    Route::get('export/order', 'OrderController@export')->name('order.export');
 
-    Route::get('inquery/status/{id}', 'InqueryController@changestatus');
-    Route::get('inquery/pdf/{id}', 'InqueryController@invoicepdf');
+    Route::post('order/delete', 'OrderController@destroyAll');
+    Route::get('order/status/{order}', 'OrderController@change_status')->name('order_status');
+
+    Route::get('order/status/{id}', 'OrderController@changestatus');
+    Route::get('order/pdf/{id}', 'OrderController@invoicepdf');
 
     // Master 
     Route::resources([
         'state'        => 'StateController',
         'city'         => 'CityController',
         'role'         => 'RoleController',
-        'price'        => 'PriceController',
-        'inquery'      => 'InqueryController',
-
+        'order'      => 'OrderController',
         'user'         => 'UsersController',
-        'size'         => 'SizeController',
-        'color'        => 'ColorController',
-        'category'     => 'CategoryController',
     ]);
 
     // setting 
     Route::resource('setting', 'SettingController');
-
-
-    Route::get('logout', 'UserController@logout')->name('admin_logout');
-    Route::get('general-setting', 'SettingController@edit')->name('general_setting');
+    Route::get('logout', 'LoginController@logout')->name('admin_logout');
 });

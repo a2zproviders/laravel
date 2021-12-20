@@ -30,9 +30,8 @@
                         <th>Name</th>
                         <th>Mobile</th>
                         <th>Email</th>
-                        <th>City</th>
+                        <!-- <th>City</th> -->
                         <th>Status</th>
-                        <!-- <th>Action</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -51,7 +50,7 @@
                         </td>
                         <td>{{ $list->mobile }}</td>
                         <td>{{ $list->email }}</td>
-                        <td>{{ $list->city_id ? $list->city->name : 'N/A' }}{{ $list->city_id ? ', '.$list->city->state->name : '' }}</td>
+                        <!-- <td>{{ $list->city_id ? $list->city->name : 'N/A' }}{{ $list->city_id ? ', '.$list->city->state->name : '' }}</td> -->
                         <td>
                           @if($list->status == 'enable')
                           <a href="{{ route('user.status', $list->id) }}">

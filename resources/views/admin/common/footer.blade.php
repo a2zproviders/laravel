@@ -95,13 +95,14 @@
 <script>
   $(function() {
     $(document).on('change', 'select.weight-select', function() {
-
       var pid = $(this).val();
       // var selectedCountry = s.val();
       var value = $(this).find('option:selected').attr('data-pc');
       $("#city_pc").val(value);
-
     });
+    // $("#order_search").on('keyup', function() {
+    //   $('#orderForm').submit();
+    // });
 
   });
 </script>
@@ -155,7 +156,7 @@
 
     $.ajax({
       method: 'post',
-      url: "{!! route('inquery.store') !!}",
+      url: "{!! route('order.store') !!}",
       processData: false,
       contentType: false,
       data: formData,

@@ -60,72 +60,56 @@ $(function () {
 
     });
 
-
-    $(document).on('change', '#inquery_category_id', function () {
-        let ajax_url = $(this).data('url'),
-            category_id = $(this).val();
+    $(document).on('keyup', '#order_search', function () {
+        let ajax_url = $('#order_search').data('url'),
+            search = $('#order_search').val(),
+            user_id = $('#order_user_id').val(),
+            limit = $('#order_limit').val(),
+            date = $('#order_date').val();
 
         $.ajax({
             url: ajax_url,
             type: 'GET',
             data: {
-                category_id: category_id
+                search: search,
+                user_id: user_id,
+                date: date,
+                limit: limit,
             },
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (res) {
-                $('#inquery_size_id').html(res.size_html);
-                $('#inquery_color_id').html(res.color_html);
+                $('#order_lists').html(res.data);
+            }
+        });
+    });
+    $(document).on('change', '#order_user_id,#order_date,#order_limit', function () {
+        let ajax_url = $('#order_search').data('url'),
+            search = $('#order_search').val(),
+            user_id = $('#order_user_id').val(),
+            limit = $('#order_limit').val(),
+            date = $('#order_date').val();
+
+        $.ajax({
+            url: ajax_url,
+            type: 'GET',
+            data: {
+                search: search,
+                user_id: user_id,
+                date: date,
+                limit: limit,
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                $('#order_lists').html(res.data);
             }
         });
     });
 
-    $(document).on('change', '#inquery_size_id, #inquery_color_id', function () {
-        let ajax_url = $(this).data('url'),
-            category_id = $('#inquery_category_id').val(),
-            color_id = $('#inquery_color_id').val(),
-            size_id = $('#inquery_size_id').val();
-        if (color_id && size_id) {
-            $.ajax({
-                url: ajax_url,
-                type: 'GET',
-                data: {
-                    category_id: category_id,
-                    color_id: color_id,
-                    size_id: size_id
-                },
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (res) {
-                    // Price
-                    $('#inquery_price').html(res);
-                    $('#inquery_price').attr('data-price', res);
-
-                    // Gst Price
-                    let gst_price = (res * 18) / 100;
-                    $('#inquery_gst').html(gst_price);
-                    $('#inquery_gst').attr('data-price', gst_price);
-
-                    // Total Price
-                    let total_price = res + gst_price;
-                    $('#inquery_total_price').html(total_price);
-                    $('#inquery_total_price').attr('data-price', total_price);
-
-                    $('#price_div').css('display', 'block');
-                }
-            });
-        } else {
-            $('#inquery_price').html('');
-            $('#inquery_price').attr('data-price', '');
-            $('#inquery_gst').html('');
-            $('#inquery_gst').attr('data-price', '');
-            $('#inquery_total_price').html('');
-            $('#inquery_total_price').attr('data-price', 0);
-            $('#price_div').css('display', 'none');
-        }
-    });
+    
     // $(document).on('change', '#inquery_color_id', function () {
     //     let ajax_url = $(this).data('url'),
     //         category_id = $('#inquery_category_id').val(),

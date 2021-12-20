@@ -32,4 +32,5 @@ $setting = App\Model\Setting::find(1);
 
 </head>
 
-<body>
+<body class="">
+<!-- <body class="sidebar-toggled"> -->

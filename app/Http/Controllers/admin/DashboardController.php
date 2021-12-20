@@ -4,11 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Routing\Controller as BaseController;
 use App\User;
-use App\Model\Category;
-use App\Model\Color;
-use App\Model\Inquery;
+use App\Model\Order;
 use App\Model\Setting;
-use App\Model\Size;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends BaseController
@@ -22,17 +19,14 @@ class DashboardController extends BaseController
             $title = 'Master Admin Dashboard';
             $setting = Setting::find(1);
             if (Auth::user()->role_id == 1) {
-                $user  = User::count();
-                $category  = Category::count();
-                $inquery  = Inquery::count();
-                $color  = Color::count();
-                $size  = Size::count();
+                $user  = User::where('role_id', 2)->count();
+                $orders  = Order::count();
 
-                $data = compact('page', 'title',  'category', 'user', 'inquery', 'color', 'size', 'setting');
+                $data = compact('page', 'title',   'user', 'orders',  'setting');
             } else {
-                $lists  = Inquery::with('category', 'size', 'color')->where('user_id', Auth::user()->id)->paginate(10);
+                $orders  = Order::with('user')->where('user_id', Auth::user()->id)->count();
 
-                $data = compact('page', 'title',  'lists', 'setting');
+                $data = compact('page', 'title',  'orders', 'setting');
             }
 
             return view('admin.layout', $data);

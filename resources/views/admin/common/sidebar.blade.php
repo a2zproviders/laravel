@@ -1,9 +1,10 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<!-- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar"> -->
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('admin/home') }}">
     <!-- <img src="{{ url('imgs/logo/logo.png') }}" alt="" style="max-height: 50px;"> -->
-    {{ auth()->user()->role_id == 1 ? 'Admin Panel' : 'User Panel' }}
+    {{ auth()->user()->role_id == 1 ? 'Admin Panel' : auth()->user()->name }}
   </a>
   <!-- Divider -->
   <hr class="sidebar-divider my-0">
@@ -20,48 +21,43 @@
     Master
   </div>
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#yantra" aria-expanded="true" aria-controls="collapseUtilities">
+  <!-- <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#master" aria-expanded="true" aria-controls="collapseUtilities">
       <i class="fas fa-fw fa-folder"></i>
       <span>Master</span>
     </a>
-    <div id="yantra" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+    <div id="master" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-
-        <a class="collapse-item" href="{{ route('category.index') }}">Category</a>
-        <a class="collapse-item" href="{{ route('color.index') }}">Color</a>
-        <a class="collapse-item" href="{{ route('size.index') }}">Size</a>
-        <!-- <a class="collapse-item" href="{{ route('state.index') }}">State</a> -->
-        <!-- <a class="collapse-item" href="{{ route('city.index') }}">City</a> -->
+        <a class="collapse-item" href="{{ route('state.index') }}">State</a>
+        <a class="collapse-item" href="{{ route('city.index') }}">City</a>
         <a class="collapse-item" href="{{ route('role.index') }}">Role</a>
       </div>
     </div>
+  </li> -->
+
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('order.index') }}">
+      <i class="fas fa-fw fa-luggage-cart"></i>
+      <span>Order</span></a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="{{ url('admin/price') }}">
-      <i class="fas fa-fw fa-wrench"></i>
-      <span>Price</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="{{ url('admin/inquery') }}">
-      <i class="fas fa-fw fa-wrench"></i>
-      <span>Inquery</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="{{ url('admin/user') }}">
-      <i class="fas fa-fw fa-wrench"></i>
+    <a class="nav-link" href="{{ route('user.index') }}">
+      <i class="fas fa-fw fa-users"></i>
       <span>User</span></a>
   </li>
   @endif
   @if(auth()->user()->role_id != 1)
 
   <li class="nav-item">
-    <a class="nav-link" href="{{ url('admin/inquery/create') }}">
-      <i class="fas fa-fw fa-wrench"></i>
-      <span>Add Inquery</span></a>
+    <a class="nav-link" href="{{ route('order.create') }}">
+      <i class="fas fa-fw fa-luggage-cart"></i>
+      <span>Add Order</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('order.index') }}">
+      <i class="fas fa-fw fa-luggage-cart"></i>
+      <span>Orders</span></a>
   </li>
   @endif
 

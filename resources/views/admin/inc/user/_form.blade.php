@@ -43,10 +43,10 @@
       @endif
     </div>
   </div>
-  <div class="col-lg-6">
+  <!-- <div class="col-lg-6">
     <div class="form-group">
       {{Form::label('city_id', 'Select City')}}
       {{Form::select('city_id', $cityArr,'0', ['class' => 'form-control', 'id'=>'city_id'])}}
     </div>
-  </div>
+  </div> -->
 </div>

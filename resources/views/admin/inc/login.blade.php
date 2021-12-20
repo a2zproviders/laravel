@@ -48,7 +48,6 @@
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" name="remember_me" value="1" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                                <div class="float-right pt-1">Don't have an account ? <a href="{{ route('register') }}">Sign up</a></div>
                                             </div>
                                         </div>
                                         <div class="text-center">
